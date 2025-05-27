@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Julia Huang Portfolio</title>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #F5E9DA;
+      --color-header: #D2B48C;
+      --color-hero: #E6C7A6;
+      --color-projects-bg: #EAD2B7;
+      --color-bio: #F3E3D0;
+      --color-contact: #CBB994;
+      --color-footer: #EDE0D4;
+      --text: #4B2E05;
+      --radius: 40px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--color-bg); font-family: 'Poppins', sans-serif; color: var(--text); padding: 20px; }
+    .container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  /* was: grid-template-rows: auto 1fr auto auto; */
+  grid-template-rows: auto 1fr 200px auto;
+  grid-template-areas:
+    "header header header"
+    "hero portrait projects"
+    "icon   bio      contact"
+    "footer footer   footer";
+  gap: 20px;
+}
+.bio,
+.contact {
+  align-self: start;
+}
+
+    .card {
+      border-radius: var(--radius);
+      padding: 20px;
+      background: inherit;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    header {
+      grid-area: header;
+      background: var(--color-header);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+    }
+    header .logo { font-size: 1.5rem; font-weight: 600; }
+    header .logo span { font-weight: 400; }
+    header nav {
+      display: flex;
+    }
+    header nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 0.9rem;
+      background: var(--color-header);
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
+  .hero {
+  grid-area: hero;
+  background: var(--color-hero);
+  position: relative;
+  border-radius: var(--radius);
+  /* was min-height, now a fixed shorter height: */
+  height: 300px;
+  /* prevent it stretching to the row's full height */
+  align-self: start;
+  padding: 20px;
+}
+
+
+    .hero .flower {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+    .hero .flower svg {
+      width: 100px;
+      height: 100px;
+      opacity: 0.3;
+      animation: rotate 10s linear infinite;
+    }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0;
+      position: absolute;
+      bottom: 60px;
+      left: 20px;
+    }
+    .hero h1 em { font-style: italic; font-weight: 400; }
+    .hero-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+   .portrait {
+  grid-area: portrait;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: var(--radius);
+  /* Increased min-height to make it taller upwards */
+  min-height: 400px;
+}
+
+    .portrait img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: var(--radius);
+    }
+    .projects {
+      grid-area: projects;
+      background: var(--color-projects-bg);
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .projects .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .projects .project-header .arrow { font-size: 1.2rem; }
+    .projects img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .projects ul {
+      list-style: none;
+      padding: 20px;
+      flex-grow: 1;
+    }
+    .projects ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      font-weight: 500;
+    }
+    .icon {
+  grid-area: icon;
+  background: var(--color-bio);
+  height: 300px;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+
+  /* lift up by the 20px grid-gap */
+  margin-top: -160px;
+
+  /* keep it above nearby elements */
+  position: relative;
+  z-index: 1;
+}
+/* make the <a> fill its card and use full width */
+  .icon.card {
+  display: flex;
+  align-items: flex-start;
+  text-decoration: none;    /* remove link underline */
+  color: var(--text);        /* match other cards */
+  padding: 20px;             /* same padding as .card */
+  box-sizing: border-box;
+}
+
+/* inner wrapper spans full width */
+.icon.card .event-content {
+  width: 100%;
+}
+
+/* “Recent Events” */
+.icon.card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 0.5em;
+}
+
+/* Subtitle italicized */
+.icon.card h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0 0 0.75em;
+}
+
+/* Body text */
+.icon.card p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* subtle hover for click affordance */
+.icon.card:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+
+    .icon svg { width: 30px; height: 30px; opacity: 0.3; }
+    .bio {
+      grid-area: bio;
+      background: var(--color-bio);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .contact {
+      grid-area: contact;
+      background: var(--color-contact);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+    .contact .contact-inner { text-align: center; }
+    .contact p { margin-bottom: 10px; }
+    .contact .arrow { display: block; margin: 0 auto 10px; font-size: 1.5rem; }
+    .contact h2 { font-size: 1.5rem; font-weight: 700; }
+    footer {
+      grid-area: footer;
+      background: var(--color-footer);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 0;
+      border-radius: var(--radius);
+    }
+    footer a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="card">
+      <div class="logo">ABDUL <span>HADI</span></div>
+      <nav>
+        <a href="#">PROJECTS</a>
+        <a href="#">ABOUT</a>
+        <a href="#">CONTACT</a>
+      </nav>
+    </header>
+
+    <div class="hero card">
+      <h1>Cyber Sleuth Navigating <em>Forensics & SOC</em> with Precision and Purpose</h1>
+      <div class="flower">
+        <!-- Decorative flower SVG -->
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#333" fill="none" stroke-width="2">
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(0 50 50)" />
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(45 50 50)" />
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(90 50 50)" />
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(135 50 50)" />
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(180 50 50)" />
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(225 50 50)" />
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(270 50 50)" />
+            <ellipse cx="50" cy="20" rx="20" ry="5" transform="rotate(315 50 50)" />
+          </g>
+        </svg>
+      </div>
+      <div class="hero-footer">Digital Vigilance | Evidence Architect</div>
+    </div>
+
+    <div class="portrait card">
+      <img src="portrait.jpg" alt="Portrait of Julia Huang">
+    </div>
+
+    <div class="projects card">
+      <h3>Projects →</h3>
+      <ul>
+        <li>Tor Browser Influx</li>
+        <li>OpenCTI + MISP</li>
+        <li>Trusty Works (React + Firebase)</li>
+        <li>Banking App in C++/Qt</li>
+        <li>Candy Crush (Assembly)</li>
+        <li>Many More...</li>
+      </ul>
+    </div>
+    
+
+    <a href="#" class="icon card">
+      <div class="event-content">
+        <h3>Recent Events</h3>
+        <h4><em>NaSCon ’25 Forensics Arena</em></h4>
+        <p>
+          <strong>Step into Pakistan’s first student-run digital forensics showdown</strong>—where <em>memory dumps whispered secrets</em>, steganography hid the evidence, and every corrupted binary was a puzzle waiting to be solved. As the architect of <strong>“The Vanishing Fixer,”</strong> I guided participants through a narrative-driven CTF that <em>blurred reality and deception.</em> Ready to unlock the mystery?
+        </p>
+      </div>
+    </a>
+    
+    
+
+    <div class="bio card">
+      
+Abdul Hadi is a passionate cybersecurity student and digital forensics enthusiast, known for unraveling digital mysteries with a sharp analytical mind. Based in Islamabad, he explores the intersection of technology and investigation, creating insightful experiences that echo across the cyber realm.
+
+    </div>
+
+    <div class="contact card">
+      <div class="contact-inner">
+        <p>Have some questions?</p>
+        <span class="arrow">→</span>
+        <h2>Contact me</h2>
+      </div>
+    </div>
+
+    <footer class="card">
+      <a href="#">INSTAGRAM</a>
+      <a href="#">TWITTER</a>
+      <a href="https://www.linkedin.com/in/abdul-hadi-b0a98826a/">LINKEDIN</a>
+    </footer>
+  </div>
+</body>
+</html>
